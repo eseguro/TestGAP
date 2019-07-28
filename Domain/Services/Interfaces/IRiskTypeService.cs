@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TestGAP.Domain.DTO;
 
 namespace TestGAP.Domain.Services.Interfaces
 {
-    public interface IBaseService<TDTO> where TDTO : class
+    public interface IRiskTypeService : IBaseService<RiskTypeDTO>
     {
-        Task<TDTO> CreateAsync(TDTO dto);
     }
 }

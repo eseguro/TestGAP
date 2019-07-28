@@ -34,14 +34,21 @@ namespace TestGAP.Infrastructure.Repositories.Base
             return Convert.ChangeType(id, keyType);
         }
 
+        public virtual async Task<TEntity> FindByIdAsync(object id)
+        {
+            var newId = CastPrimaryKey(id);
+            return await _context.FindAsync<TEntity>(newId);
+        }
+
         public virtual TEntity GetSingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
             return _entities.Where(predicate).FirstOrDefault();
         }
 
-        public virtual async Task AddAsync(TEntity entity)
+        public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
             await _entities.AddAsync(entity);
+            return entity;
         }
         
         public virtual IQueryable<TEntity> GetAll()

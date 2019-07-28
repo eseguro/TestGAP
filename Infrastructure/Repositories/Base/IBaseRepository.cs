@@ -8,7 +8,7 @@ namespace TestGAP.Infrastructure.Repositories.Base
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {
-        Task AddAsync(TEntity entity);
+        Task<TEntity> AddAsync(TEntity entity);
         void Update(TEntity entity);
         void Remove(TEntity entity);
 

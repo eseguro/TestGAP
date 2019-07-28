@@ -24,16 +24,15 @@ namespace TestGAP.Domain.Services.Base
             _unitOfWork = unitOfWork;
         }
 
-        public async virtual Task CreateAsync(TDTO dto)
+        public async virtual Task<TDTO> CreateAsync(TDTO dto)
         {
-
             TEntity entity = _mapper.Map<TDTO, TEntity>(dto);
 
             await _repository.AddAsync(entity);
 
-            //return _mapper.Map<TDTO>(entity);
+            await _unitOfWork.CompleteAsync();
+
+            return _mapper.Map<TEntity, TDTO>(entity);
         }
-
-
     }
 }

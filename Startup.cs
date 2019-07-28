@@ -13,6 +13,9 @@ using Microsoft.Extensions.Hosting;
 using TestGAP.Infrastructure;
 using AutoMapper;
 using TestGAP.Config;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace TestGAP
 {
@@ -40,6 +43,9 @@ namespace TestGAP
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+            DIContainer.Register(services);
+
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
             // In production, the Angular files will be served from this directory
@@ -61,10 +67,18 @@ namespace TestGAP
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler(a => a.Run(async context =>
+                {
+                    var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+                    var exception = exceptionHandlerPathFeature.Error;
+
+                    var result = JsonConvert.SerializeObject(new { error = exception.Message });
+                    context.Response.ContentType = "application/json";
+                    await context.Response.WriteAsync(result);
+                }));
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }
+            }            
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
