@@ -12,12 +12,8 @@ namespace TestGAP.Infrastructure.Repositories.Base
         void Update(TEntity entity);
         void Remove(TEntity entity);
 
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
         TEntity GetSingleOrDefault(Expression<Func<TEntity, bool>> predicate);
-        IEnumerable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
-        IEnumerable<TEntity> GetAll();
-        Task<IEnumerable<TEntity>> GetPageAsync(int page, int pageSize);
-
-        Task CommitAsync();    
+        IQueryable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetPageAsync(int page, int pageSize);  
     }
 }

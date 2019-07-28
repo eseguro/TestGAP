@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -6,51 +7,69 @@ using System.Threading.Tasks;
 
 namespace TestGAP.Infrastructure.Repositories.Base
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
+    public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        public Task AddAsync(TEntity entity)
+
+        protected readonly ApplicationDbContext _context;
+        protected readonly DbSet<TEntity> _entities;
+
+        public BaseRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _entities = context.Set<TEntity>();
         }
 
-        public Task CommitAsync()
+        protected string GetPrimaryKeyName()
         {
-            throw new NotImplementedException();
+            var keyNames = _context.Model.FindEntityType(typeof(TEntity)).FindPrimaryKey().Properties.Select(x => x.Name);
+            string keyName = keyNames.FirstOrDefault();
+
+            return keyName;
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        protected object CastPrimaryKey(object id)
         {
-            throw new NotImplementedException();
+            string keyName = GetPrimaryKeyName();
+            Type keyType = typeof(TEntity).GetProperty(keyName).PropertyType;
+            return Convert.ChangeType(id, keyType);
         }
 
-        public IEnumerable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate)
+        public virtual TEntity GetSingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _entities.Where(predicate).FirstOrDefault();
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public virtual async Task AddAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await _entities.AddAsync(entity);
+        }
+        
+        public virtual IQueryable<TEntity> GetAll()
+        {
+            return _entities;
         }
 
-        public Task<IEnumerable<TEntity>> GetPageAsync(int page, int pageSize)
+        public virtual async Task<IEnumerable<TEntity>> GetPageAsync(int page, int pageSize)
         {
-            throw new NotImplementedException();
+            IQueryable<TEntity> query = _context.Set<TEntity>();
+
+            if (page != -1)
+                query = query.Skip((page - 1) * pageSize);
+
+            if (pageSize != -1)
+                query = query.Take(pageSize);
+
+            return await query.ToListAsync();
         }
 
-        public TEntity GetSingleOrDefault(Expression<Func<TEntity, bool>> predicate)
+        public virtual void Remove(TEntity entity)
         {
-            throw new NotImplementedException();
+            _entities.Remove(entity);
         }
 
-        public void Remove(TEntity entity)
+        public virtual void Update(TEntity entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Update(TEntity entity)
-        {
-            throw new NotImplementedException();
+            _entities.Update(entity);
         }
     }
 }
