@@ -3,21 +3,32 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
+//core functionality
+import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
+import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
+import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
+
+//3rd libraries
+import { MaterialModule } from './material.module';
+
+//Components
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
-import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
-import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module';
 import { ListInsuranceComponent } from './insurance-policy/list/list-insurance-policy.component';
 import { EditInsurancePolicyComponent } from './insurance-policy/edit/edit-insurance-policy.component';
 import { CreateInsurancePolicyComponent } from './insurance-policy/create/create-insurance-policy.component';
 import { FormInsurancePolicyComponent } from './insurance-policy/form-insurance-policy/form-insurance-policy.component';
+
+//services
+import { InsurancePolicyService } from './shared/services/insurance-policy.service';
+import { RiskTypeService } from './shared/services/risk-type.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +60,9 @@ import { FormInsurancePolicyComponent } from './insurance-policy/form-insurance-
     ReactiveFormsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    InsurancePolicyService,
+    RiskTypeService
   ],
   bootstrap: [AppComponent]
 })

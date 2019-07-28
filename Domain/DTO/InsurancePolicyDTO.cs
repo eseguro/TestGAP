@@ -14,5 +14,7 @@ namespace TestGAP.Domain.DTO
         public int CoverageMonth { get; set; }
         public int Price { get; set; }
         public int RiskTypeId { get; set; }
+
+        public RiskTypeDTO RiskType { get; set; }
     }
 }

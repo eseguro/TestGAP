@@ -10,11 +10,25 @@ import { RiskTypeModel } from 'src/app/shared/models/risk-type.model';
   styleUrls: ['./create-insurance-policy.component.css']
 })
 export class CreateInsurancePolicyComponent implements OnInit {
- ngOnInit(){}
+  insuranceModel: InsurancePolicyModel = new InsurancePolicyModel();
+  ngOnInit() { 
+    this.initModel();
+  }
 
- save(insurance: InsurancePolicyModel){
-  console.log('guarda', insurance);
 
- }
 
+  save(insurance: InsurancePolicyModel) {
+    console.log('guarda', insurance);
+
+  }
+
+  initModel() {
+    this.insuranceModel.insurancePolicyId = 0;
+    this.insuranceModel.name = '';
+    this.insuranceModel.description = '';
+    this.insuranceModel.initDate = '';
+    this.insuranceModel.coverageMonth = 0;
+    this.insuranceModel.price = 0;
+    this.insuranceModel.riskTypeId = 0;    
+  }
 }

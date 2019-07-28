@@ -7,7 +7,7 @@ import { InsurancePolicyModel } from 'src/app/shared/models/insurance-policy.mod
   styleUrls: ['./edit-insurance-policy.component.css']
 })
 export class EditInsurancePolicyComponent implements OnInit {
-  insurance : InsurancePolicyModel = {insurancePolicyId: 1, name: 'Hydrogen', price: 10079, description: 'H', initDate: '12/09/2019', coverageMonth: 10, riskType: {riskTypeId: 3 ,description: 'medio-alto'} };
+  insurance : InsurancePolicyModel = {insurancePolicyId: 1, name: 'Hydrogen', price: 10079, description: 'H', initDate: '12/09/2019', coverageMonth: 10, riskType: null, riskTypeId : 1 };
   constructor() { }
 
   ngOnInit() {

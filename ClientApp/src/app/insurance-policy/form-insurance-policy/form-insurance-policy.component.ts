@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InsurancePolicyModel } from 'src/app/shared/models/insurance-policy.model';
 import { RiskTypeModel } from 'src/app/shared/models/risk-type.model';
 import { RiskType } from 'src/app/shared/enums/risk-type.enum';
+import { RiskTypeService } from 'src/app/shared/services/risk-type.service';
 
 @Component({
   selector: 'app-form-insurance-policy',
@@ -10,47 +11,40 @@ import { RiskType } from 'src/app/shared/enums/risk-type.enum';
   styleUrls: ['./form-insurance-policy.component.css']
 })
 export class FormInsurancePolicyComponent implements OnInit {
-  @Input()insuranceRecord : InsurancePolicyModel;
-  @Output() saveInsurance: EventEmitter<InsurancePolicyModel> = new EventEmitter(); 
+  @Input() insuranceRecord: InsurancePolicyModel;
+  @Output() saveInsurance: EventEmitter<InsurancePolicyModel> = new EventEmitter();
+
   insuranceForm: FormGroup;
-  insurance: InsurancePolicyModel;
-  riskTypes: RiskTypeModel[]  = [
-    {riskTypeId: 1, description: 'bajo'},
-    {riskTypeId: 2, description: 'medio'},
-    {riskTypeId: 3, description: 'medio-alto'},
-    {riskTypeId: 4, description: 'alto'}
+  riskTypes: RiskTypeModel[] = [];
+  submitted: boolean = false;
 
-  ];
-  submitted: boolean = false ;
-    constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private _riskTypeService: RiskTypeService) { }
 
-    ngOnInit() { 
-      console.log(this.insuranceRecord.riskType)
-        this.insurance = {
-          insurancePolicyId: (this.insuranceRecord && this.insuranceRecord.insurancePolicyId) || 0,
-          name: (this.insuranceRecord && this.insuranceRecord.name) || '',
-          description: (this.insuranceRecord && this.insuranceRecord.description) || '',
-          initDate: (this.insuranceRecord && this.insuranceRecord.initDate) || new Date().toDateString(),
-          price:(this.insuranceRecord && this.insuranceRecord.price) || 0,
-          riskType: (this.insuranceRecord && this.insuranceRecord.riskType) || {riskTypeId: 4, description:'alto'},
-          coverageMonth: (this.insuranceRecord && this.insuranceRecord.coverageMonth) || 0
-        };
+  ngOnInit() {
+    this.setForm();
+    this.loadRiskType();
+  }
 
-        this.insuranceForm = this.formBuilder.group({
-            name: [this.insurance.name.trim(), Validators.required ],
-            description: [this.insurance.description.trim(), Validators.required ],
-            initDate:[this.insurance.initDate, Validators.required ],
-            price:[this.insurance.price, Validators.required ],
-            riskType: [this.insurance.riskType, Validators.required ],
-            coverageMonth: [this.insurance.coverageMonth, Validators.required ],
-        });
-    }
+  onSubmit({ value }: { value: InsurancePolicyModel }) {
+    this.submitted = true;
+    console.log(value);
+    this.saveInsurance.emit(value);
+  }
 
-    onSubmit({ value }: { value: InsurancePolicyModel }) {
-      this.submitted = true;
-      console.log(value);
-      this.saveInsurance.emit(value);
-    }
+  setForm() {
+    this.insuranceForm = this.formBuilder.group({
+      name: [this.insuranceRecord.name.trim(), Validators.required],
+      description: [this.insuranceRecord.description.trim(), Validators.required],
+      initDate: [this.insuranceRecord.initDate, Validators.required],
+      price: [this.insuranceRecord.price, Validators.required],
+      riskTypeId: [this.insuranceRecord.riskTypeId, Validators.required],
+      coverageMonth: [this.insuranceRecord.coverageMonth, Validators.required],
+    });
+  }
 
-
+  loadRiskType() {
+    this._riskTypeService.getAll().subscribe(res => {
+      this.riskTypes = res;
+    });
+  }
 }
