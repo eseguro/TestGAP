@@ -1,5 +1,5 @@
 export enum RiskType {
-  bajo,
+  bajo = 1,
   medio,
   medioAlto,
   alto,
