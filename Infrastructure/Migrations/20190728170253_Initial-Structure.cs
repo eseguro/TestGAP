@@ -65,7 +65,8 @@ namespace TestGAP.Infrastructure.Migrations
                     InsurancePolicyCoveringId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CoverageTypeId = table.Column<int>(nullable: false),
-                    InsurancePolicyId = table.Column<int>(nullable: false)
+                    InsurancePolicyId = table.Column<int>(nullable: false),
+                    Percentage = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,6 +83,28 @@ namespace TestGAP.Infrastructure.Migrations
                         principalTable: "InsurancePolicy",
                         principalColumn: "InsurancePolicyId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "CoverageType",
+                columns: new[] { "CoverageTypeId", "Description" },
+                values: new object[,]
+                {
+                    { 1, "Terremoto" },
+                    { 2, "Incendio" },
+                    { 3, "Robo" },
+                    { 4, "Pérdida" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "RiskType",
+                columns: new[] { "RiskTypeId", "Description" },
+                values: new object[,]
+                {
+                    { 1, "Bajo" },
+                    { 2, "Medio" },
+                    { 3, "Medio-Alto" },
+                    { 4, "Alto" }
                 });
 
             migrationBuilder.CreateIndex(

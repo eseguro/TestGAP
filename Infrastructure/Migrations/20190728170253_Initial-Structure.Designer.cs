@@ -10,7 +10,7 @@ using TestGAP.Infrastructure;
 namespace TestGAP.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190728030352_InitialStructure")]
+    [Migration("20190728170253_Initial-Structure")]
     partial class InitialStructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -259,6 +259,28 @@ namespace TestGAP.Infrastructure.Migrations
                     b.HasKey("CoverageTypeId");
 
                     b.ToTable("CoverageType");
+
+                    b.HasData(
+                        new
+                        {
+                            CoverageTypeId = 1,
+                            Description = "Terremoto"
+                        },
+                        new
+                        {
+                            CoverageTypeId = 2,
+                            Description = "Incendio"
+                        },
+                        new
+                        {
+                            CoverageTypeId = 3,
+                            Description = "Robo"
+                        },
+                        new
+                        {
+                            CoverageTypeId = 4,
+                            Description = "Pérdida"
+                        });
                 });
 
             modelBuilder.Entity("TestGAP.Infrastructure.Entities.InsurancePolicy", b =>
@@ -296,6 +318,8 @@ namespace TestGAP.Infrastructure.Migrations
 
                     b.Property<int>("InsurancePolicyId");
 
+                    b.Property<int>("Percentage");
+
                     b.HasKey("InsurancePolicyCoveringId");
 
                     b.HasIndex("CoverageTypeId");
@@ -316,6 +340,28 @@ namespace TestGAP.Infrastructure.Migrations
                     b.HasKey("RiskTypeId");
 
                     b.ToTable("RiskType");
+
+                    b.HasData(
+                        new
+                        {
+                            RiskTypeId = 1,
+                            Description = "Bajo"
+                        },
+                        new
+                        {
+                            RiskTypeId = 2,
+                            Description = "Medio"
+                        },
+                        new
+                        {
+                            RiskTypeId = 3,
+                            Description = "Medio-Alto"
+                        },
+                        new
+                        {
+                            RiskTypeId = 4,
+                            Description = "Alto"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -27,12 +27,20 @@ namespace TestGAP.Infrastructure
             {
                 entity.ToTable("RiskType");
                 entity.HasMany(x => x.InsurancePolicies).WithOne(x => x.RiskType).OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasData(new RiskType() { RiskTypeId = 1, Description = "Bajo" },
+                               new RiskType() { RiskTypeId = 2, Description = "Medio" },
+                               new RiskType() { RiskTypeId = 3, Description = "Medio-Alto" },
+                               new RiskType() { RiskTypeId = 4, Description = "Alto" });
             });
 
             builder.Entity<CoverageType>(entity =>
             {
                 entity.ToTable("CoverageType");
-                //entity.HasMany(x => x.InsurancePolicyCoverings).WithOne(x => x.CoverageType).OnDelete(DeleteBehavior.Cascade);
+                entity.HasData(new CoverageType() { CoverageTypeId = 1, Description = "Terremoto" },
+                               new CoverageType() { CoverageTypeId = 2, Description = "Incendio" },
+                               new CoverageType() { CoverageTypeId = 3, Description = "Robo" },
+                               new CoverageType() { CoverageTypeId = 4, Description = "Pérdida" });
             });
 
             builder.Entity<InsurancePolicy>(entity =>
@@ -53,7 +61,7 @@ namespace TestGAP.Infrastructure
                    .WithMany(p => p.InsurancePolicyCoverings)
                    .HasForeignKey(d => d.CoverageTypeId)
                    .HasConstraintName("Fk_InsurancePolicyCovering_CoverageType");
-            });
+            });            
         }
     }
 }

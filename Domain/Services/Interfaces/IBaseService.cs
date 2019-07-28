@@ -8,5 +8,6 @@ namespace TestGAP.Domain.Services.Interfaces
     public interface IBaseService<TDTO> where TDTO : class
     {
         Task<TDTO> CreateAsync(TDTO dto);
+        List<TDTO> GetAll();
     }
 }

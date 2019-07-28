@@ -24,5 +24,12 @@ namespace TestGAP.Controllers
             var resultDTO = await _riskTypeService.CreateAsync(dto);
             return Ok(resultDTO);
         }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var resultList = _riskTypeService.GetAll();
+            return Ok(resultList);
+        }
     }
 }

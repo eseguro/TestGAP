@@ -34,5 +34,10 @@ namespace TestGAP.Domain.Services.Base
 
             return _mapper.Map<TEntity, TDTO>(entity);
         }
+
+        public virtual List<TDTO> GetAll()
+        {
+            return _mapper.Map<List<TEntity>, List<TDTO>>(_repository.GetAll().ToList());
+        }
     }
 }
