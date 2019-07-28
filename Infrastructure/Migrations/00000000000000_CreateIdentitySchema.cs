@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TestGAP.Data.Migrations
+namespace TestGAP.Infrastructure.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
-using TestGAP.Data;
-using TestGAP.Models;
+using TestGAP.Infrastructure.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TestGAP.Infrastructure;
 
 namespace TestGAP
 {

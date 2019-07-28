@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TestGAP.Models
+namespace TestGAP.Infrastructure.Entities
 {
     public class ApplicationUser : IdentityUser
     {
