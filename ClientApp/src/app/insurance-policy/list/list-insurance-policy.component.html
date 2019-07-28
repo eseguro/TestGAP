@@ -4,7 +4,7 @@
     <!-- Position Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let insurance"> {{insurance.id}} </td>
+      <td mat-cell *matCellDef="let insurance"> {{insurance.insurancePolicyId}} </td>
     </ng-container>
 
     <!-- Name Column -->
@@ -22,7 +22,7 @@
     <!-- initDate Column -->
     <ng-container matColumnDef="initDate">
       <th mat-header-cell *matHeaderCellDef> Init Date </th>
-      <td mat-cell *matCellDef="let insurance"> {{insurance.initDate}} </td>
+      <td mat-cell *matCellDef="let insurance"> {{insurance.initDate | date}} </td>
     </ng-container>
 
     <!-- coverage Column -->
@@ -47,5 +47,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
+  
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
