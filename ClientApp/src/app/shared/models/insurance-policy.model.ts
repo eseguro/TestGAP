@@ -1,4 +1,4 @@
-import { RiskType } from "../enums/risk-type.enum";
+import { RiskTypeModel } from "./risk-type.model";
 
 export class InsurancePolicyModel {
   insurancePolicyId: number;
@@ -7,5 +7,5 @@ export class InsurancePolicyModel {
 	initDate: string;
 	coverageMonth: number;
 	price: number;
-	riskyType: number
+	riskType: RiskTypeModel
 }
