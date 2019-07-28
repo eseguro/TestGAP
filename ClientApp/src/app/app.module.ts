@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -15,6 +15,9 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { ListInsuranceComponent } from './insurance-policy/list/list-insurance-policy.component';
+import { EditInsurancePolicyComponent } from './insurance-policy/edit/edit-insurance-policy.component';
+import { CreateInsurancePolicyComponent } from './insurance-policy/create/create-insurance-policy.component';
+import { FormInsurancePolicyComponent } from './insurance-policy/form-insurance-policy/form-insurance-policy.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +25,10 @@ import { ListInsuranceComponent } from './insurance-policy/list/list-insurance-p
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    ListInsuranceComponent
+    ListInsuranceComponent,
+    EditInsurancePolicyComponent,
+    CreateInsurancePolicyComponent,
+    FormInsurancePolicyComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,10 +39,14 @@ import { ListInsuranceComponent } from './insurance-policy/list/list-insurance-p
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-      { path: 'policies', component: ListInsuranceComponent },
+      { path: 'insurance', component: ListInsuranceComponent },
+      { path: 'insurance/:id/edit', component: EditInsurancePolicyComponent},
+      { path: 'insurance/new', component: CreateInsurancePolicyComponent},
     ]),
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }

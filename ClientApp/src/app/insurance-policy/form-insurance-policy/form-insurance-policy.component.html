@@ -1,0 +1,40 @@
+<div class="container">
+    <div *ngIf="!submitted">
+        <h1>Reactive Form</h1>
+        <form [formGroup]="insuranceForm" (ngSubmit)="onSubmit(insuranceForm)">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" formControlName="name" />
+                <div class="alert alert-danger" [hidden]="insuranceForm.controls.name.valid">Name is required</div>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" formControlName="description" />
+                <div class="alert alert-danger" [hidden]="insuranceForm.controls.description.valid">Description is required</div>
+            </div>
+            <div class="form-group">
+                <label for="date">Init Date</label>
+                <input type="date" class="form-control" formControlName="initDate" />
+                <div class="alert alert-danger" [hidden]="insuranceForm.controls.initDate.valid">Init Date is required and must be a valid email pattern</div>
+            </div>
+            <div class="form-group">
+                <label for="coverageMonth">Coverage Month</label>
+                <input type="text" class="form-control" formControlName="coverageMonth" />
+                <div class="alert alert-danger" [hidden]="insuranceForm.controls.coverageMonth.valid">Coverage Month is required</div>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="text" class="form-control" formControlName="price" />
+                <div class="alert alert-danger" [hidden]="insuranceForm.controls.price.valid">Price is required</div>
+            </div>
+            <div class="form-group">
+                <label for="riskType">Risk Type</label>
+                <select class="form-control" formControlName="riskType">
+                  <option *ngFor="let riskType of riskTypes" [selected]="riskTypeSelected" [value]="riskType">{{riskType.description}}</option>
+                </select>
+                <div class="alert alert-danger" [hidden]="insuranceForm.controls.riskType.valid">Risk Type is required</div>
+            </div>
+            <button mat-button type="submit" color="primary" [disabled]="!insuranceForm.valid">Submit</button> 
+        </form>  
+    </div>
+</div>
