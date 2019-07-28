@@ -27,10 +27,15 @@ namespace TestGAP.Config
 
             #region [REPOSITORIES]
             services.AddScoped<ICoverageTypeRepository, CoverageTypeRepository>();
+            services.AddScoped<IInsurancePolicyCoveringRepository, InsurancePolicyCoveringRepository>();
+            services.AddScoped<IInsurancePolicyRepository, InsurancePolicyRepository>();            
             services.AddScoped<IRiskTypeRepository, RiskTypeRepository>();
             #endregion
 
             #region [SERVICES]
+            services.AddScoped<ICoverageTypeService, CoverageTypeService>();
+            services.AddScoped<IInsurancePolicyCoveringService, InsurancePolicyCoveringService>();
+            services.AddScoped<IInsurancePolicyService, InsurancePolicyService>();
             services.AddScoped<IRiskTypeService, RiskTypeService>();
             #endregion
         }

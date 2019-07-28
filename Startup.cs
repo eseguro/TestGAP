@@ -32,8 +32,11 @@ namespace TestGAP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseLazyLoadingProxies();
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection"));                
+            });
 
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -78,7 +81,7 @@ namespace TestGAP
                 }));
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }            
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
