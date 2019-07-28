@@ -1,2 +1,2 @@
-export enum RiskType.Enum {
+export enum RiskType {
 }
