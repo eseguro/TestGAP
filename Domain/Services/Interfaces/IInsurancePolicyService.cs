@@ -7,7 +7,7 @@ using TestGAP.Domain.Services.Base;
 
 namespace TestGAP.Domain.Services.Interfaces
 {
-    public interface IRiskTypeService : IBaseService<RiskTypeDTO>
+    public interface IInsurancePolicyService : IBaseService<InsurancePolicyDTO>
     {
     }
 }
