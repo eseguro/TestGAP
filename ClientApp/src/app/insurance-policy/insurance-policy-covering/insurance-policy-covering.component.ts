@@ -41,7 +41,7 @@ export class InsurancePolicyCoveringComponent implements OnInit {
   setForm() {
     this.coveringForm = this.formBuilder.group({
       insurancePolicyId: new FormControl(this.idParam, [Validators.required]),
-      coverageTypeId: new FormControl(0, [Validators.required]),
+      coverageTypeId: new FormControl('', [Validators.required]),
       percentage: new FormControl(0, [Validators.pattern(this.patternNumbers), Validators.required])
     });
   }

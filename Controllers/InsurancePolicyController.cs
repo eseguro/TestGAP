@@ -45,5 +45,12 @@ namespace TestGAP.Controllers
             var result = await _insurancePolicyService.GetById(id);
             return Ok(result);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] InsurancePolicyDTO dto)
+        {
+            await _insurancePolicyService.Update(dto);
+            return Ok();
+        }
     }
 }

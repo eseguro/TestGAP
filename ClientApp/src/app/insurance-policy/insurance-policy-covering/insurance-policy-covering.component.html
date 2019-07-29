@@ -6,6 +6,7 @@
     <form class="form-inline" [formGroup]="coveringForm" (ngSubmit)="onSubmit(coveringForm)">
       <label class="sr-only" for="coverageTypeId">Coverage</label>
       <select class="form-control  mb-2 mr-sm-2" formControlName="coverageTypeId">
+        <option value="">Covering type</option>
         <option *ngFor="let coverageType of coverageTypeList" [value]="coverageType.coverageTypeId">
           {{coverageType.description}}
         </option>
@@ -26,8 +27,8 @@
   <ul class="list-group list-group-flush">
     <li *ngFor="let covering of currentPolicyCovering" class="list-group-item">
       <div class="col-md-12">
-        <div class="col-md-6">{{covering.coverageType.description}}</div>
-        <div class="col-md-6">{{covering.percentage}}</div>
+        <div class="float-left">Covering type: {{covering.coverageType.description}}</div>
+        <div class="float-right">Percentage: {{covering.percentage}}</div>
       </div>
     </li>
   </ul>

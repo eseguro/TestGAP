@@ -51,5 +51,13 @@ namespace TestGAP.Domain.Services.Base
         {
             return _mapper.Map<TEntity, TDTO>(await _repository.FindByIdAsync(id));
         }
+
+        public virtual async Task Update(TDTO dto)
+        {
+            TEntity entity = _mapper.Map<TDTO, TEntity>(dto);
+            _repository.Update(entity);
+
+            await _unitOfWork.CompleteAsync();
+        }
     }
 }

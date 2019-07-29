@@ -28,4 +28,8 @@ export class InsurancePolicyService {
   public getById(id: number) {
     return this._http.get<InsurancePolicyModel>(`${this.API_URL}${EndPoints.INSURANCEPOLICY}/${id}`);
   }
+
+  public put(model: InsurancePolicyModel) {
+    return this._http.put<InsurancePolicyModel>(this.API_URL + EndPoints.INSURANCEPOLICY, model);
+  }
 }
