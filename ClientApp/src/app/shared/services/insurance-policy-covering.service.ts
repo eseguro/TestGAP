@@ -17,4 +17,8 @@ export class InsurancePolicyCoveringService {
   public getAll(id: number) {
     return this._http.get<InsurancePolicyCoveringModel[]>(`${this.API_URL}${EndPoints.INSURANCEPOLICYCOVERING}/${id}`);
   }
+
+  public post(model: InsurancePolicyCoveringModel) {
+    return this._http.post<InsurancePolicyCoveringModel>(this.API_URL + EndPoints.INSURANCEPOLICYCOVERING, model);
+  }
 }

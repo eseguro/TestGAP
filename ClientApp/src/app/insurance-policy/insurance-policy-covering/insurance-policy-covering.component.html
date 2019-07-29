@@ -19,6 +19,9 @@
       </div>
       <button type="submit" class="btn btn-primary mb-2" [disabled]="!coveringForm.valid">Save</button>
     </form>
+    <div class="col-md-12" *ngIf="error">
+      <p class="text text-danger">{{errorMessage}}</p>
+    </div>
   </div>
   <ul class="list-group list-group-flush">
     <li *ngFor="let covering of currentPolicyCovering" class="list-group-item">
@@ -29,3 +32,4 @@
     </li>
   </ul>
 </div>
+

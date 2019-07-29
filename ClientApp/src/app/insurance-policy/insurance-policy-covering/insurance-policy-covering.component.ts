@@ -19,14 +19,14 @@ export class InsurancePolicyCoveringComponent implements OnInit {
 
   coveringForm: FormGroup
   idParam: number = 0;
-  riskTypeHigh: boolean;
+  error: boolean = false;
+  errorMessage: string = '';
   coverageTypeList: CoverageTypeModel[] = [];
   currentPolicyCovering: InsurancePolicyCoveringModel[] = [];
   patternNumbers = /^[0-9]*$/;
 
   constructor(private formBuilder: FormBuilder,
     private _coverageTypeService: CoverageTypeService,
-    private _insurancePolicyService :InsurancePolicyService,
     private _insurancePolicyCoveringService: InsurancePolicyCoveringService,
     private _route: ActivatedRoute,
     private _router: Router) { }
@@ -34,9 +34,8 @@ export class InsurancePolicyCoveringComponent implements OnInit {
   ngOnInit() {
     this.idParam = Number(this._route.snapshot.paramMap.get('id'));
     this.loadCurrentPolicyCoverage(this.idParam);
-    this.loadCurrentPolicyCoverageRisk(this.idParam);
     this.loadCoverageType();
-    this.setForm();    
+    this.setForm();
   }
 
   setForm() {
@@ -47,13 +46,7 @@ export class InsurancePolicyCoveringComponent implements OnInit {
     });
   }
 
-  loadCurrentPolicyCoverageRisk(id: number){
-    this._insurancePolicyService.getById(id).subscribe(resp =>{
-        this.riskTypeHigh = resp.riskTypeId === RiskType.high.valueOf();
-    });
-  }
-
-  loadCurrentPolicyCoverage(id: number){
+  loadCurrentPolicyCoverage(id: number) {
     this._insurancePolicyCoveringService.getAll(id).subscribe(resp => {
       this.currentPolicyCovering = resp;
     })
@@ -65,8 +58,14 @@ export class InsurancePolicyCoveringComponent implements OnInit {
     });
   }
 
-  onSubmit({ value }: { value: InsurancePolicyCoveringModel }){
-    console.log(value);
+  onSubmit({ value }: { value: InsurancePolicyCoveringModel }) {
+    this.error = false;
+    this._insurancePolicyCoveringService.post(value).subscribe(res => {      
+      this.loadCurrentPolicyCoverage(this.idParam);
+    }, error => {
+      this.error = true;
+      this.errorMessage = error.error;
+    });
   }
 
 }
