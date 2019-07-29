@@ -38,5 +38,12 @@ namespace TestGAP.Controllers
             await _insurancePolicyService.Delete(id);
             return Ok();
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var result = await _insurancePolicyService.GetById(id);
+            return Ok(result);
+        }
     }
 }

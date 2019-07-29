@@ -6,7 +6,7 @@
     <form class="form-inline">
       <label class="sr-only" for="coverageTypeId">Name</label>
       <select class="form-control  mb-2 mr-sm-2" formControlName="coverageTypeId">
-        <option *ngFor="let coverageType of coverageTypes" [value]="coverageType.coverageTypeId">
+        <option *ngFor="let coverageType of coverageTypeList" [value]="coverageType.coverageTypeId">
           {{coverageType.description}}
         </option>
       </select>    
