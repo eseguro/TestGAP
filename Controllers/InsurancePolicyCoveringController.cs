@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TestGAP.Domain.DTO;
@@ -10,6 +11,7 @@ using TestGAP.Domain.Services.Interfaces;
 
 namespace TestGAP.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class InsurancePolicyCoveringController : ControllerBase
