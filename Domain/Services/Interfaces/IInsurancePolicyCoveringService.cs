@@ -9,5 +9,6 @@ namespace TestGAP.Domain.Services.Interfaces
 {
     public interface IInsurancePolicyCoveringService : IBaseService<InsurancePolicyCoveringDTO>
     {
+        List<InsurancePolicyCoveringDTO> GetAll(int id);
     }
 }

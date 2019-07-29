@@ -14,9 +14,18 @@ namespace TestGAP.Domain.Services
 {
     public class InsurancePolicyCoveringService : BaseService<InsurancePolicyCoveringDTO, InsurancePolicyCovering>, IInsurancePolicyCoveringService
     {
+        private IMapper _mapperLocal;
         public InsurancePolicyCoveringService(IInsurancePolicyCoveringRepository repository, IMapper mapper, IUnitOfWork unitOfWork)
             : base(repository, mapper, unitOfWork)
         {
+            _mapperLocal = mapper;
+        }
+
+        public List<InsurancePolicyCoveringDTO> GetAll(int id)
+        {
+            return _mapperLocal.Map<
+                List<InsurancePolicyCovering>, List<InsurancePolicyCoveringDTO>
+                >(_repository.GetAll().Where(x => x.InsurancePolicyId == id).ToList());
         }
     }
 }

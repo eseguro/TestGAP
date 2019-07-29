@@ -24,4 +24,8 @@ export class InsurancePolicyService {
   public delete(id: number){
     return this._http.delete(`${this.API_URL}${EndPoints.INSURANCEPOLICY}/${id}`);
   }
+
+  public getById(id: number) {
+    return this._http.get<InsurancePolicyModel>(`${this.API_URL}${EndPoints.INSURANCEPOLICY}/${id}`);
+  }
 }

@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { CoverageTypeService } from 'src/app/shared/services/coverage-type.service';
+
 import { CoverageTypeModel } from 'src/app/shared/models/coverage-type.model';
 import { InsurancePolicyCoveringModel } from 'src/app/shared/models/insurance-policy-covering.model';
+import { RiskType } from 'src/app/shared/enums/risk-type.enum';
+
+import { CoverageTypeService } from 'src/app/shared/services/coverage-type.service';
+import { InsurancePolicyService } from 'src/app/shared/services/insurance-policy.service';
+import { InsurancePolicyCoveringService } from 'src/app/shared/services/insurance-policy-covering.service';
 
 @Component({
   selector: 'app-insurance-policy-covering',
@@ -14,19 +19,22 @@ export class InsurancePolicyCoveringComponent implements OnInit {
 
   coveringForm: FormGroup
   idParam: number = 0;
-  riskType: number;
+  riskTypeHigh: boolean;
   coverageTypeList: CoverageTypeModel[] = [];
-  insurancePolicyCovering: InsurancePolicyCoveringModel;
   currentPolicyCovering: InsurancePolicyCoveringModel[] = [];
   patternNumbers = /^[0-9]*$/;
 
   constructor(private formBuilder: FormBuilder,
     private _coverageTypeService: CoverageTypeService,
+    private _insurancePolicyService :InsurancePolicyService,
+    private _insurancePolicyCoveringService: InsurancePolicyCoveringService,
     private _route: ActivatedRoute,
     private _router: Router) { }
 
   ngOnInit() {
     this.idParam = Number(this._route.snapshot.paramMap.get('id'));
+    this.loadCurrentPolicyCoverage(this.idParam);
+    this.loadCurrentPolicyCoverageRisk(this.idParam);
     this.loadCoverageType();
     this.setForm();    
   }
@@ -35,18 +43,30 @@ export class InsurancePolicyCoveringComponent implements OnInit {
     this.coveringForm = this.formBuilder.group({
       insurancePolicyId: new FormControl(this.idParam, [Validators.required]),
       coverageTypeId: new FormControl(0, [Validators.required]),
-      Percentage: new FormControl(0, [Validators.pattern(this.patternNumbers), Validators.required])
+      percentage: new FormControl(0, [Validators.pattern(this.patternNumbers), Validators.required])
     });
   }
 
-  loadCurrentPolicyCoverage(){
+  loadCurrentPolicyCoverageRisk(id: number){
+    this._insurancePolicyService.getById(id).subscribe(resp =>{
+        this.riskTypeHigh = resp.riskTypeId === RiskType.high.valueOf();
+    });
+  }
 
+  loadCurrentPolicyCoverage(id: number){
+    this._insurancePolicyCoveringService.getAll(id).subscribe(resp => {
+      this.currentPolicyCovering = resp;
+    })
   }
 
   loadCoverageType() {
     this._coverageTypeService.getAll().subscribe(res => {
       this.coverageTypeList = res;
     });
+  }
+
+  onSubmit({ value }: { value: InsurancePolicyCoveringModel }){
+    console.log(value);
   }
 
 }

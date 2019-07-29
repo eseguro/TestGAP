@@ -11,5 +11,7 @@ namespace TestGAP.Domain.DTO
         public int CoverageTypeId { get; set; }
         public int InsurancePolicyId { get; set; }
         public int Percentage { get; set; }
+
+        public CoverageTypeDTO CoverageType { get; set; }
     }
 }

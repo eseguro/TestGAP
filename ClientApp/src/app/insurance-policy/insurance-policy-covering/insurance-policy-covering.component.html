@@ -3,26 +3,29 @@
     Insurance policy covering
   </div>
   <div class="card-body">
-    <form class="form-inline">
-      <label class="sr-only" for="coverageTypeId">Name</label>
+    <form class="form-inline" [formGroup]="coveringForm" (ngSubmit)="onSubmit(coveringForm)">
+      <label class="sr-only" for="coverageTypeId">Coverage</label>
       <select class="form-control  mb-2 mr-sm-2" formControlName="coverageTypeId">
         <option *ngFor="let coverageType of coverageTypeList" [value]="coverageType.coverageTypeId">
           {{coverageType.description}}
         </option>
-      </select>    
-      <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+      </select>
+      <label class="sr-only" for="percentage">Percentage</label>
       <div class="input-group mb-2 mr-sm-2">
         <div class="input-group-prepend">
           <div class="input-group-text">%</div>
         </div>
-        <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username">
-      </div>    
-      <button type="submit" class="btn btn-primary mb-2">Save</button>
+        <input type="text" class="form-control" formControlName="percentage" placeholder="Percentage">
+      </div>
+      <button type="submit" class="btn btn-primary mb-2" [disabled]="!coveringForm.valid">Save</button>
     </form>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">Cras justo odio</li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Vestibulum at eros</li>
+    <li *ngFor="let covering of currentPolicyCovering" class="list-group-item">
+      <div class="col-md-12">
+        <div class="col-md-6">{{covering.coverageType.description}}</div>
+        <div class="col-md-6">{{covering.percentage}}</div>
+      </div>
+    </li>
   </ul>
 </div>
