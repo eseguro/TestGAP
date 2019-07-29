@@ -9,5 +9,6 @@ namespace TestGAP.Domain.Services.Base
     {
         Task<TDTO> CreateAsync(TDTO dto);
         List<TDTO> GetAll();
+        Task Delete(int id);
     }
 }

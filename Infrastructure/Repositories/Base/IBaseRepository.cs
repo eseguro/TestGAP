@@ -10,7 +10,7 @@ namespace TestGAP.Infrastructure.Repositories.Base
     {
         Task<TEntity> AddAsync(TEntity entity);
         void Update(TEntity entity);
-        void Remove(TEntity entity);
+        Task Remove(object id);
 
         TEntity GetSingleOrDefault(Expression<Func<TEntity, bool>> predicate);
         IQueryable<TEntity> GetAll();

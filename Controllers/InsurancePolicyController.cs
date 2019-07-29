@@ -33,9 +33,9 @@ namespace TestGAP.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            //Delete service
+            await _insurancePolicyService.Delete(id);
             return Ok();
         }
     }

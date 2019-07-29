@@ -50,7 +50,7 @@ namespace TestGAP.Infrastructure.Repositories.Base
             await _entities.AddAsync(entity);
             return entity;
         }
-        
+
         public virtual IQueryable<TEntity> GetAll()
         {
             return _entities;
@@ -69,9 +69,11 @@ namespace TestGAP.Infrastructure.Repositories.Base
             return await query.ToListAsync();
         }
 
-        public virtual void Remove(TEntity entity)
+        public virtual async Task Remove(object id)
         {
-            _entities.Remove(entity);
+            TEntity entity = await FindByIdAsync(id);
+            if (entity != null)
+                _entities.Remove(entity);
         }
 
         public virtual void Update(TEntity entity)

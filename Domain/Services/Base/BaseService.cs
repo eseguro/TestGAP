@@ -39,5 +39,10 @@ namespace TestGAP.Domain.Services.Base
         {
             return _mapper.Map<List<TEntity>, List<TDTO>>(_repository.GetAll().ToList());
         }
+
+        public virtual async Task Delete(int id)
+        {
+            await _repository.Remove(id);
+        }
     }
 }
