@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { InsurancePolicyModel } from 'src/app/shared/models/insurance-policy.model';
-import { RiskType } from 'src/app/shared/enums/risk-type.enum';
-import { RiskTypeModel } from 'src/app/shared/models/risk-type.model';
 import { InsurancePolicyService } from 'src/app/shared/services/insurance-policy.service';
+
 
 @Component({
   selector: 'app-create-insurance-policy',
@@ -13,7 +12,8 @@ import { InsurancePolicyService } from 'src/app/shared/services/insurance-policy
 export class CreateInsurancePolicyComponent implements OnInit {
   insuranceModel: InsurancePolicyModel = new InsurancePolicyModel();
 
-  constructor(private _insurancePolicyService: InsurancePolicyService) {
+  constructor(private _insurancePolicyService: InsurancePolicyService,
+    private _router: Router) {
   }
 
   ngOnInit() {
@@ -22,9 +22,9 @@ export class CreateInsurancePolicyComponent implements OnInit {
 
   save(insurance: InsurancePolicyModel) {
     this.insuranceModel = insurance;
-    this._insurancePolicyService.Post(insurance).subscribe(res => {
+    this._insurancePolicyService.post(insurance).subscribe(res => {
       if (res) {
-        console.log(res)
+        this._router.navigate(['/insurance']);
       }
     })
   }

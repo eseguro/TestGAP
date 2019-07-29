@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-header">
+    Insurance policy covering
+  </div>
+  <div class="card-body">
+    <form class="form-inline">
+      <label class="sr-only" for="coverageTypeId">Name</label>
+      <select class="form-control  mb-2 mr-sm-2" formControlName="coverageTypeId">
+        <option *ngFor="let coverageType of coverageTypes" [value]="coverageType.coverageTypeId">
+          {{coverageType.description}}
+        </option>
+      </select>    
+      <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+      <div class="input-group mb-2 mr-sm-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">%</div>
+        </div>
+        <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username">
+      </div>    
+      <button type="submit" class="btn btn-primary mb-2">Save</button>
+    </form>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+  </ul>
+</div>

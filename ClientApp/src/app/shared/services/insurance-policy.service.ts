@@ -14,10 +14,14 @@ export class InsurancePolicyService {
   }
 
   public getAll() {
-    return this._http.get<InsurancePolicyModel[]>(this.API_URL + EndPoints.LIST_INSURANCEPOLICY);
+    return this._http.get<InsurancePolicyModel[]>(this.API_URL + EndPoints.INSURANCEPOLICY);
   }
 
-  public Post(model: InsurancePolicyModel) {
-    return this._http.post<InsurancePolicyModel>(this.API_URL + EndPoints.CREATE_INSURANCEPOLICY, model);
+  public post(model: InsurancePolicyModel) {
+    return this._http.post<InsurancePolicyModel>(this.API_URL + EndPoints.INSURANCEPOLICY, model);
+  }
+
+  public delete(id: number){
+    return this._http.delete(`${this.API_URL}${EndPoints.INSURANCEPOLICY}/${id}`);
   }
 }

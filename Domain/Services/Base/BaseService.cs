@@ -43,6 +43,8 @@ namespace TestGAP.Domain.Services.Base
         public virtual async Task Delete(int id)
         {
             await _repository.Remove(id);
+
+            await _unitOfWork.CompleteAsync();
         }
     }
 }

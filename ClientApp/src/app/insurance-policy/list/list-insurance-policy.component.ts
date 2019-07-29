@@ -12,7 +12,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
 })
 export class ListInsuranceComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'description', 'initDate', 'coverageMonth', 'price', 'riskType', 'edit', 'delete'];
+  displayedColumns: string[] = ['coverage', 'id', 'name', 'description', 'initDate', 'coverageMonth', 'price', 'riskType', 'edit', 'delete'];
   dataSource: MatTableDataSource<InsurancePolicyModel>;
   idDelete: number;
 
@@ -22,6 +22,10 @@ export class ListInsuranceComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.loadTable();
+  }
+
+  loadTable(){
     this._insurancePolicyService.getAll().subscribe(data => {
       this.dataSource = new MatTableDataSource<InsurancePolicyModel>(data);
       this.dataSource.paginator = this.paginator;
@@ -31,14 +35,18 @@ export class ListInsuranceComponent implements OnInit {
   openDialog(insurancePolicyId: number): void {
     this.idDelete = insurancePolicyId;
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '350px',
       data: "Do you confirm the deletion of this data?"
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Yes clicked');
-        // DO SOMETHING
+        this.deleteRecord(this.idDelete);
       }
+    });
+  }
+
+  deleteRecord(id: number) {
+    this._insurancePolicyService.delete(id).subscribe(resp => {
+      this.loadTable();
     });
   }
 }

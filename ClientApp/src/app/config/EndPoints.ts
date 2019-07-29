@@ -1,5 +1,5 @@
 export const EndPoints = {
-    LIST_INSURANCEPOLICY: 'InsurancePolicy',
-    CREATE_INSURANCEPOLICY: 'InsurancePolicy',
-    LIST_RISKTYPE: 'RiskType'
+    INSURANCEPOLICY: 'InsurancePolicy',
+    LIST_RISKTYPE: 'RiskType',
+    LIST_COVERAGETYPE: 'CoverageType',
 }
