@@ -13,7 +13,7 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 
 //3rd libraries
 import { MaterialModule } from './material.module';
-import { MatFormFieldModule, MatInputModule, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatDatepickerModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatDatepickerModule, MatDialogModule, MatButtonModule } from '@angular/material';
 
 //Components
 import { AppComponent } from './app.component';
@@ -64,7 +64,12 @@ import { ConfirmationDialogComponent } from './shared/components/confirmation-di
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatDialogModule,
+    MatButtonModule
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },

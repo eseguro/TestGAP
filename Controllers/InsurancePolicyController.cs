@@ -31,5 +31,12 @@ namespace TestGAP.Controllers
             var resultList = _insurancePolicyService.GetAll();
             return Ok(resultList);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            //Delete service
+            return Ok();
+        }
     }
 }
