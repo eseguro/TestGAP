@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InsurancePolicyModel } from 'src/app/shared/models/insurance-policy.model';
 import { RiskType } from 'src/app/shared/enums/risk-type.enum';
 import { RiskTypeModel } from 'src/app/shared/models/risk-type.model';
+import { InsurancePolicyService } from 'src/app/shared/services/insurance-policy.service';
 
 @Component({
   selector: 'app-create-insurance-policy',
@@ -11,15 +12,21 @@ import { RiskTypeModel } from 'src/app/shared/models/risk-type.model';
 })
 export class CreateInsurancePolicyComponent implements OnInit {
   insuranceModel: InsurancePolicyModel = new InsurancePolicyModel();
-  ngOnInit() { 
+
+  constructor(private _insurancePolicyService: InsurancePolicyService) {
+  }
+
+  ngOnInit() {
     this.initModel();
   }
 
-
-
   save(insurance: InsurancePolicyModel) {
-    console.log('guarda', insurance);
-
+    this.insuranceModel = insurance;
+    this._insurancePolicyService.Post(insurance).subscribe(res => {
+      if (res) {
+        console.log(res)
+      }
+    })
   }
 
   initModel() {
@@ -29,6 +36,6 @@ export class CreateInsurancePolicyComponent implements OnInit {
     this.insuranceModel.initDate = '';
     this.insuranceModel.coverageMonth = 0;
     this.insuranceModel.price = 0;
-    this.insuranceModel.riskTypeId = 0;    
+    this.insuranceModel.riskTypeId = 0;
   }
 }

@@ -8,14 +8,16 @@ import { EndPoints } from 'src/app/config/EndPoints';
 })
 export class InsurancePolicyService {
 
-  API_URL : string;
+  API_URL: string;
   constructor(private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.API_URL = baseUrl;
-   }
+  }
 
-   public getAll(){
-     return this._http.get<InsurancePolicyModel[]>(this.API_URL + EndPoints.LIST_INSURANCEPOLICY).subscribe(result => {
-       return result;
-     });
-   }
+  public getAll() {
+    return this._http.get<InsurancePolicyModel[]>(this.API_URL + EndPoints.LIST_INSURANCEPOLICY);
+  }
+
+  public Post(model: InsurancePolicyModel) {
+    return this._http.post<InsurancePolicyModel>(this.API_URL + EndPoints.CREATE_INSURANCEPOLICY, model);
+  }
 }

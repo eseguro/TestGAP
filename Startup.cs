@@ -49,7 +49,8 @@ namespace TestGAP
 
             DIContainer.Register(services);
 
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddMvc(options => options.EnableEndpointRouting = false)
+                .AddNewtonsoftJson();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

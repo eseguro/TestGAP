@@ -1,4 +1,5 @@
 import { RiskTypeModel } from "./risk-type.model";
+import { InsurancePolicyCoveringModel } from "./insurance-policy-covering.model";
 
 export class InsurancePolicyModel {
 	constructor(){}
@@ -9,5 +10,7 @@ export class InsurancePolicyModel {
 	coverageMonth: number;
 	price: number;
 	riskTypeId: number;
+
 	riskType: RiskTypeModel;
+	insurancePolicyCovering: InsurancePolicyCoveringModel[];
 }

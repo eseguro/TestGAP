@@ -13,6 +13,7 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 
 //3rd libraries
 import { MaterialModule } from './material.module';
+import { MatFormFieldModule, MatInputModule, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatDatepickerModule } from '@angular/material';
 
 //Components
 import { AppComponent } from './app.component';
@@ -28,6 +29,8 @@ import { FormInsurancePolicyComponent } from './insurance-policy/form-insurance-
 //services
 import { InsurancePolicyService } from './shared/services/insurance-policy.service';
 import { RiskTypeService } from './shared/services/risk-type.service';
+import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { RiskTypeService } from './shared/services/risk-type.service';
     ListInsuranceComponent,
     EditInsurancePolicyComponent,
     CreateInsurancePolicyComponent,
-    FormInsurancePolicyComponent
+    FormInsurancePolicyComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -57,10 +61,15 @@ import { RiskTypeService } from './shared/services/risk-type.service';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
     InsurancePolicyService,
     RiskTypeService
   ],
