@@ -18,10 +18,12 @@ namespace TestGAP.Domain.Services
     {
         private IMapper _mapperLocal;
         private readonly IInsurancePolicyService _insurancePolicyService;
+        private readonly IInsurancePolicyCoveringRepository _insurancePolicyCoveringRepository;
         public InsurancePolicyCoveringService(IInsurancePolicyCoveringRepository repository, IMapper mapper, IUnitOfWork unitOfWork,
             IInsurancePolicyService insurancePolicyService)
             : base(repository, mapper, unitOfWork)
         {
+            _insurancePolicyCoveringRepository = repository;
             _mapperLocal = mapper;
             _insurancePolicyService = insurancePolicyService;
         }
@@ -36,7 +38,7 @@ namespace TestGAP.Domain.Services
         public async Task ValidateCoveringPercentage(InsurancePolicyCoveringDTO dto)
         {
             var insurancePolicy = await _insurancePolicyService.GetById(dto.InsurancePolicyId);
-            var currentCoveringList = GetAll(dto.InsurancePolicyId);
+            var currentCoveringList = _insurancePolicyCoveringRepository.GetAll(dto.InsurancePolicyId);
             int totalPercentage = dto.Percentage;
             foreach (var item in currentCoveringList)
             {

@@ -13,5 +13,10 @@ namespace TestGAP.Infrastructure.Repositories
         public InsurancePolicyCoveringRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+        public List<InsurancePolicyCovering> GetAll(int id)
+        {
+            return GetAll().Where(x => x.InsurancePolicyId == id).ToList();
+        }
     }
 }

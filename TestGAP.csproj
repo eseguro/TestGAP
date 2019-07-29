@@ -31,8 +31,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="UnitTestGAP\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="UnitTestGAP\**" />
+    <EmbeddedResource Remove="UnitTestGAP\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="UnitTestGAP\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
