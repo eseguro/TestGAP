@@ -30,6 +30,8 @@ namespace TestGAP.Config
             services.AddScoped<IInsurancePolicyCoveringRepository, InsurancePolicyCoveringRepository>();
             services.AddScoped<IInsurancePolicyRepository, InsurancePolicyRepository>();            
             services.AddScoped<IRiskTypeRepository, RiskTypeRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerInsurancePolicyRepository, CustomerInsurancePolicyRepository>();
             #endregion
 
             #region [SERVICES]
@@ -37,6 +39,8 @@ namespace TestGAP.Config
             services.AddScoped<IInsurancePolicyCoveringService, InsurancePolicyCoveringService>();
             services.AddScoped<IInsurancePolicyService, InsurancePolicyService>();
             services.AddScoped<IRiskTypeService, RiskTypeService>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<ICustomerInsurancePolicyService, CustomerInsurancePolicyService>();
             #endregion
         }
     }

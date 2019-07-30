@@ -46,8 +46,6 @@ namespace TestGAP.Infrastructure
             builder.Entity<InsurancePolicy>(entity =>
             {
                 entity.ToTable("InsurancePolicy");
-                
-                //entity.HasMany(x => x.InsurancePolicyCoverings).WithOne(x => x.InsurancePolicy).OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<InsurancePolicyCovering>(entity => {
@@ -61,7 +59,33 @@ namespace TestGAP.Infrastructure
                    .WithMany(p => p.InsurancePolicyCoverings)
                    .HasForeignKey(d => d.CoverageTypeId)
                    .HasConstraintName("Fk_InsurancePolicyCovering_CoverageType");
-            });            
+            });     
+
+            builder.Entity<Customer>(entity =>
+            {
+                entity.ToTable("Customer");
+
+                entity.HasData(new Customer() { CustomerId = 1, Name = "Juan Palacio" },
+                               new Customer() { CustomerId = 2, Name = "Flora Martinez" },
+                               new Customer() { CustomerId = 3, Name = "Manuela Molina" },
+                               new Customer() { CustomerId = 4, Name = "Toby Tiberio" },
+                               new Customer() { CustomerId = 5, Name = "Marcos Pedraza" });
+            });
+
+
+            builder.Entity<CustomerInsurancePolicy>(entity => {
+                entity.ToTable("CustomerInsurancePolicy");
+                
+                entity.HasOne(d => d.InsurancePolicy)
+                    .WithMany(p => p.CustomerInsurancePolicies)
+                    .HasForeignKey(d => d.InsurancePolicyId)
+                    .HasConstraintName("Fk_CustomerInsurancePolicy_InsurancePolicy");
+
+                entity.HasOne(d => d.Customer)
+                   .WithMany(p => p.CustomerInsurancePolicies)
+                   .HasForeignKey(d => d.CustomerId)
+                   .HasConstraintName("Fk_CustomerInsurancePolicy_Customer");
+            });        
         }
     }
 }

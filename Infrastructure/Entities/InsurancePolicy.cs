@@ -18,5 +18,7 @@ namespace TestGAP.Infrastructure.Entities
         public virtual IEnumerable<InsurancePolicyCovering> InsurancePolicyCoverings { get; set; }
         public virtual RiskType RiskType { get; set; }
 
+        public virtual IEnumerable<CustomerInsurancePolicy> CustomerInsurancePolicies { get; set; }
+
     }
 }

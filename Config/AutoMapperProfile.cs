@@ -16,6 +16,8 @@ namespace TestGAP.Config
             CreateMap<InsurancePolicy, InsurancePolicyDTO>().ReverseMap();
             CreateMap<InsurancePolicyCovering, InsurancePolicyCoveringDTO>().ReverseMap();
             CreateMap<RiskType, RiskTypeDTO>().ReverseMap();
+            CreateMap<Customer, CustomerDTO>().ReverseMap();
+            CreateMap<CustomerInsurancePolicy, CustomerInsurancePolicyDTO>().ReverseMap();
         }
     }
 }
